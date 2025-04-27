@@ -1,6 +1,28 @@
-node_modules
-# Keep environment variables out of version control
+# Dependencias
+/node_modules/
+
+# Prisma Client generado (tu carpeta “generated” fuera de node_modules)
+​/generated/
+
+# Archivos de migraciones en dev suelen versionarse (¡no los ignores!), pero
+# si llegas a tener snapshots de bases SQLite o backups aquí, ignóralos:
+//prisma/*.db
+//prisma/*.sqlite
+
+# Credenciales y entornos
 .env
-/node_modules
-/prisma/client
-/prisma/query-engine-*
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build o dist (si usas transpilers más adelante)
+/dist/
+/build/
+
+# IDEs / Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

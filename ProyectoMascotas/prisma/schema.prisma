@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -21,7 +20,7 @@ enum Roles {
 
 
 model Users {
-  id Int @id @unique
+  id Int @id @unique @default(autoincrement())
   fullname  String @db.VarChar(100)
   email String @db.VarChar(50)
   password String @db.VarChar(255)
