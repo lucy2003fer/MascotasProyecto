@@ -4,9 +4,9 @@ const prisma = new PrismaClient();
 
 export const crearPetLFOH = async (req, res) => {
     try {
-      const { race_id, category_id, photo, nombre, state, gender_id, user_id } = req.body;
+      const { race_id, category_id, photo, name, state, gender_id, user_id } = req.body;
       const pet = await prisma.pets.create({
-        data: { race_id, category_id, photo, nombre, state, gender_id, user_id }
+        data: { race_id, category_id, photo, name, state, gender_id, user_id }
       });
       res.json({ message: 'Mascota creada correctamente', pet });
     } catch (error) {
@@ -41,12 +41,12 @@ export const crearPetLFOH = async (req, res) => {
   export const actualizarPetLFOH = async (req, res) => {
     try {
       const { id } = req.params;
-      const { race_id, category_id, photo, nombre, state, gender_id, user_id } = req.body;
+      const { race_id, category_id, photo, name, state, gender_id, user_id } = req.body;
       const existing = await prisma.pets.findUnique({ where: { id: parseInt(id) } });
       if (!existing) return res.status(404).json({ message: 'Mascota no encontrada' });
       const pet = await prisma.pets.update({
         where: { id: parseInt(id) },
-        data: { race_id, category_id, photo, nombre, state, gender_id, user_id }
+        data: { race_id, category_id, photo, name, state, gender_id, user_id }
       });
       res.json({ message: 'Mascota actualizada', pet });
     } catch (error) {

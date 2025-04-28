@@ -12,14 +12,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.use(userRouter);
-app.use(raceRouter);
-app.use(categoryRouter);
-app.use(genderRouter);
-app.use(petRouter);
+app.use('/api/',userRouter);
+app.use('/api/',raceRouter);
+app.use('/api/',categoryRouter);
+app.use('/api/',genderRouter);
+app.use('/api/',petRouter);
 
 //token
-app.use(routerToken);
+app.use('/api/',routerToken);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'public/index.html'));
+  });
 
 app.listen(3000, () => {
     console.log('El servidor inició en el puerto 3000');
