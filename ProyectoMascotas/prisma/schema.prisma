@@ -65,3 +65,9 @@ model Pets{
   gender Genders @relation(fields: [gender_id], references: [id])
 }
 
+
+
+
+
+
+

@@ -7,9 +7,18 @@ import genderRouter from './src/routes/gender.routeLFOH.js';
 import petRouter from './src/routes/pet.routeLFOH.js';
 import routerToken from "./src/token/token.routeLFOH.js";
 
+import YAML from 'yamljs';
+import swaggerUi from 'swagger-ui-express';
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Cargar el archivo de configuración de Swagger
+const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
+
+// Middleware para servir Swagger UI
+app.use('/api/document', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.use('/api/',userRouter);
@@ -27,4 +36,5 @@ app.get('*', (req, res) => {
 
 app.listen(3000, () => {
     console.log('El servidor inició en el puerto 3000');
+    console.log(`Documentación disponible en http://localhost:3000/api/document`);
 });
