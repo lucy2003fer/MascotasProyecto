@@ -7,6 +7,7 @@ CREATE TABLE `Users` (
     `role` ENUM('admin', 'user') NOT NULL DEFAULT 'admin',
 
     UNIQUE INDEX `Users_id_key`(`id`),
+    UNIQUE INDEX `Users_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

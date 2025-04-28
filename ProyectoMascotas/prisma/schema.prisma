@@ -22,7 +22,7 @@ enum Roles {
 model Users {
   id Int @id @unique @default(autoincrement())
   fullname  String @db.VarChar(100)
-  email String @db.VarChar(50)
+  email String @unique @db.VarChar(50)
   password String @db.VarChar(255)
   role Roles @default(admin)
   pets Pets[]
@@ -55,7 +55,7 @@ model Pets{
   race_id Int
   category_id Int
   photo String @db.VarChar(255)
-  nombre String @db.VarChar(50)
+  name String @db.VarChar(50)
   state State @default(disponible)
   gender_id Int
   user_id Int
