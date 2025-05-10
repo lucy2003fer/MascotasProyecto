@@ -3,11 +3,11 @@ import { crearCategoryLFOH, obtenerCategoriesLFOH, buscarCategoryLFOH, actualiza
 import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 const categoryRouter = Router();
-categoryRouter.get('/categories',  obtenerCategoriesLFOH);
-categoryRouter.post('/categories',  crearCategoryLFOH);
-categoryRouter.get('/categories/:id',  buscarCategoryLFOH);
-categoryRouter.put('/categories/:id',  actualizarCategoryLFOH);
-categoryRouter.patch('/categories/:id',  patchCategoryLFOH);
-categoryRouter.delete('/categories/:id',  eliminarCategoryLFOH);
+categoryRouter.get('/categories', verifyJWT, obtenerCategoriesLFOH);
+categoryRouter.post('/categories', verifyJWT, crearCategoryLFOH);
+categoryRouter.get('/categories/:id', verifyJWT, buscarCategoryLFOH);
+categoryRouter.put('/categories/:id', verifyJWT, actualizarCategoryLFOH);
+categoryRouter.patch('/categories/:id', verifyJWT, patchCategoryLFOH);
+categoryRouter.delete('/categories/:id', verifyJWT, eliminarCategoryLFOH);
 
 export default categoryRouter;

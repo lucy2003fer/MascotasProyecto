@@ -4,23 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
-    <script src="js/index.js"></script>
-    <title>Login</title>
+    <script src="js/conexion.js"></script>
+    <script src="js/index.js" defer></script>
+    <title>Login - Tu mejor amigo</title>
 </head>
 <body>
-    <img src="imgs/bg-login.svg" alt="Fondo decorativo" class="full-bg">
-    <div class="login-container">    
-        <form class="login-form">
+    <div class="login-container">
+        
+        <form id="loginForm" class="login-form">
             <div class="form-group">
-                <input type="email" id="email" placeholder="Correo Electronico" required>
+                <input type="email" id="email" placeholder="Ingresa tu correo" required>
             </div>
             <div class="form-group">
-                <input type="password" id="password" placeholder="Contraseña" required>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
             </div>
             <button type="submit" class="login-button">Ingresar</button>
         </form>
     </div>
-    
-    
 </body>
 </html>
