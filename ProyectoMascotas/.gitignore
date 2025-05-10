@@ -1,17 +1,13 @@
 # Dependencias
 /node_modules/
 
-# Prisma Client generado (tu carpeta “generated” fuera de node_modules)
-​/generated/
 
 # Archivos de migraciones en dev suelen versionarse (¡no los ignores!), pero
 # si llegas a tener snapshots de bases SQLite o backups aquí, ignóralos:
 //prisma/*.db
 //prisma/*.sqlite
 
-# Credenciales y entornos
-.env
-.env.*.local
+
 
 # Logs
 *.log
@@ -26,3 +22,5 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+pets

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { crearUserLFOH, obtenerUserLFOH, actualizarUserLFOH, eliminarUserLFOH, buscarUsersLFOH  } from '../controllers/users.controllerLFOH.js';
-import verifyJWT from "../token/token.controllerLFOH.js";
+import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 
 const userRouter = Router();

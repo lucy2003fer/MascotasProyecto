@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { crearCategoryLFOH, obtenerCategoriesLFOH, buscarCategoryLFOH, actualizarCategoryLFOH, patchCategoryLFOH, eliminarCategoryLFOH } from '../controllers/categories.controllerLFOH.js';
-import verifyJWT from "../token/token.controllerLFOH.js";
+import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 const categoryRouter = Router();
 categoryRouter.get('/categories', verifyJWT, obtenerCategoriesLFOH);

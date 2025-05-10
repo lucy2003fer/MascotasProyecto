@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { crearRaceLFOH, obtenerRacesLFOH, buscarRaceLFOH, actualizarRaceLFOH, patchRaceLFOH, eliminarRaceLFOH } from '../controllers/races.controllerLFOH.js';
-import verifyJWT from "../token/token.controllerLFOH.js";
+import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 
 const raceRouter = Router();

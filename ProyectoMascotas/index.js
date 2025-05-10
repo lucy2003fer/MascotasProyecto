@@ -5,14 +5,17 @@ import raceRouter from './src/routes/race.routeLFOH.js';
 import categoryRouter from './src/routes/category.routeLFOH.js';
 import genderRouter from './src/routes/gender.routeLFOH.js';
 import petRouter from './src/routes/pet.routeLFOH.js';
-import routerToken from "./src/token/token.routeLFOH.js";
+import routerToken from "./src/middleware/token.routeLFOH.js";
 
 import YAML from 'yamljs';
 import swaggerUi from 'swagger-ui-express';
+import path from 'path';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use("/pets", express.static(path.join("public","pets")));
 
 // Cargar el archivo de configuración de Swagger
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
@@ -30,9 +33,6 @@ app.use('/api/',petRouter);
 //token
 app.use('/api/',routerToken);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'public/index.html'));
-  });
 
 app.listen(3000, () => {
     console.log('El servidor inició en el puerto 3000');

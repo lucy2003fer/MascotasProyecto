@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { crearPetLFOH, obtenerPetsLFOH, buscarPetLFOH, actualizarPetLFOH, patchPetLFOH, eliminarPetLFOH } from '../controllers/pets.controllerLFOH.js';
-import verifyJWT from "../token/token.controllerLFOH.js";
+import verifyJWT from "../middleware/token.controllerLFOH.js";
+import {upload} from "../middleware/multer.js"
 
 const petRouter = Router();
-petRouter.get('/pets', verifyJWT, obtenerPetsLFOH);
-petRouter.post('/pets', verifyJWT, crearPetLFOH);
-petRouter.get('/pets/:id', verifyJWT, buscarPetLFOH);
-petRouter.put('/pets/:id', verifyJWT, actualizarPetLFOH);
-petRouter.patch('/pets/:id', verifyJWT, patchPetLFOH);
-petRouter.delete('/pets/:id', verifyJWT, eliminarPetLFOH);
+petRouter.get('/pets',  obtenerPetsLFOH);
+petRouter.post('/pets',  upload.single('photo'), crearPetLFOH);
+petRouter.get('/pets/:id',  buscarPetLFOH);
+petRouter.put('/pets/:id',  upload.single('photo'), actualizarPetLFOH);
+petRouter.patch('/pets/:id',  upload.single('photo'), patchPetLFOH);
+petRouter.delete('/pets/:id',  eliminarPetLFOH);
 
 export default petRouter;

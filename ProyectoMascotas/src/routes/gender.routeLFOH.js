@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { crearGenderLFOH,  obtenerGendersLFOH, buscarGenderLFOH, actualizarGenderLFOH, patchGenderLFOH, eliminarGenderLFOH } from '../controllers/genders.controllerLFOH.js';
-import verifyJWT from "../token/token.controllerLFOH.js";
+import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 const genderRouter = Router();
 genderRouter.get('/genders', verifyJWT, obtenerGendersLFOH);
