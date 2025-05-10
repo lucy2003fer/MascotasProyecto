@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Mascotas</title>
+  <script src="js/conexion.js"></script>
+  <script src="js/createpets.js" defer></script>
+  <link rel="stylesheet" href="css/createpets.css">
+</head>
+<body>
+  <div class="add-pet-container">
+    <div class="add-pet-header">
+      <button class="btn-icon" id="btn-back"><img src="imgs/btn-back.svg" alt="Volver"></button>
+      <h2>Adicionar Mascota</h2>
+      <button class="btn-icon" id="btn-close"><img src="imgs/btn-close.svg" alt="Cerrar"></button>
+    </div>
+
+    <div class="add-pet-form">
+      <div class="photo-upload">
+        <img id="pet-photo-preview" src="imgs/icon-camera.svg" alt="Subir foto" />
+      </div>
+
+      <input type="text" id="pet-name" placeholder="Nombre" required />
+      
+      <select id="pet-race" required>
+        <option value="" disabled selected>Seleccione Raza...</option>
+      </select>
+      
+      <select id="pet-category" required>
+        <option value="" disabled selected>Seleccione Categoría...</option>
+      </select>
+
+      <label class="upload-file">
+        <span>Subir Foto</span>
+        <input type="file" id="pet-photo" accept="image/*" hidden required />
+        <img src="imgs/icon-camera.svg" alt="icono cámara" />
+      </label>
+
+      <select id="pet-gender" required>
+        <option value="" disabled selected>Seleccione Género...</option>
+      </select>
+
+      <button class="btn-save" id="btn-save">
+        <img src="imgs/btn-save.svg" alt="Guardar" />
+      </button>
+    </div>
+  </div>
+</body>
+</html>

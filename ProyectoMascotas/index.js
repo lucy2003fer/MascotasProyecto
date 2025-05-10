@@ -10,10 +10,12 @@ import routerToken from "./src/middleware/token.routeLFOH.js";
 import YAML from 'yamljs';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
+import cors from 'cors';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors()); 
 
 app.use("/pets", express.static(path.join("public","pets")));
 
