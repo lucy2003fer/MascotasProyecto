@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export const crearPetLFOH = async (req, res) => {
   try {
-    const { race_id, category_id, name, state, gender_id, user_id } = req.body;
+    const { race_id, category_id, name, state, gender_id} = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: "pon imagen" })
@@ -13,7 +13,7 @@ export const crearPetLFOH = async (req, res) => {
     const imgname = req.file.filename
 
     const pet = await prisma.pets.create({
-      data: { race_id: parseInt(race_id), category_id: parseInt(category_id), photo: `/pets/${imgname}`, name: name, state: state, gender_id: parseInt(gender_id), user_id: parseInt(user_id) }
+      data: { race_id: parseInt(race_id), category_id: parseInt(category_id), photo: `/pets/${imgname}`, name: name, state: state, gender_id: parseInt(gender_id) }
     });
     res.json({ message: 'Mascota creada correctamente', pet });
   } catch (error) {
@@ -48,7 +48,7 @@ export const buscarPetLFOH = async (req, res) => {
 export const actualizarPetLFOH = async (req, res) => {
   try {
     const { id } = req.params;
-    const { race_id, category_id, photo, name, state, gender_id, user_id } = req.body;
+    const { race_id, category_id, photo, name, state, gender_id} = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: "pon imagen" })
@@ -60,7 +60,7 @@ export const actualizarPetLFOH = async (req, res) => {
     if (!existing) return res.status(404).json({ message: 'Mascota no encontrada' });
     const pet = await prisma.pets.update({
       where: { id: parseInt(id) },
-      data: { race_id: parseInt(race_id), category_id: parseInt(category_id), photo: `/pets/${imgname}`, name: name, state: state, gender_id: parseInt(gender_id), user_id: parseInt(user_id) }
+      data: { race_id: parseInt(race_id), category_id: parseInt(category_id), photo: `/pets/${imgname}`, name: name, state: state, gender_id: parseInt(gender_id) }
     });
     res.json({ message: 'Mascota actualizada', pet });
   } catch (error) {
@@ -87,7 +87,6 @@ export const patchPetLFOH = async (req, res) => {
     if (updates.race_id) updates.race_id = parseInt(updates.race_id);
     if (updates.category_id) updates.category_id = parseInt(updates.category_id);
     if (updates.gender_id) updates.gender_id = parseInt(updates.gender_id);
-    if (updates.user_id) updates.user_id = parseInt(updates.user_id);
 
     const pet = await prisma.pets.update({
       where: { id: parseInt(id) },
