@@ -10,9 +10,9 @@
 <body>
   <div class="add-pet-container">
     <div class="add-pet-header">
-      <button class="btn-icon" id="btn-back"><img src="imgs/btn-back.svg" alt="Volver"></button>
+      <button class="btn-icon" id="btn-back"><img src="imgs/btn-back.svg" alt="Volver"></button> 
       <h2>Adicionar Mascota</h2>
-      <button class="btn-icon" id="btn-close"><img src="imgs/btn-close.svg" alt="Cerrar"></button>
+      <button class="btn-icon" id="btn-close"><img src="imgs/btn-close.svg" alt="Cerrar"></button> 
     </div>
 
     <div class="add-pet-form">
@@ -21,11 +21,11 @@
       </div>
 
       <input type="text" id="pet-name" placeholder="Nombre" required />
-      
+
       <select id="pet-race" required>
         <option value="" disabled selected>Seleccione Raza...</option>
       </select>
-      
+
       <select id="pet-category" required>
         <option value="" disabled selected>Seleccione Categoría...</option>
       </select>
@@ -39,6 +39,7 @@
       <select id="pet-gender" required>
         <option value="" disabled selected>Seleccione Género...</option>
       </select>
+      <div id="error" style="color: red;"></div>
 
       <button class="btn-save" id="btn-save">
         <img src="imgs/btn-save.svg" alt="Guardar" />
