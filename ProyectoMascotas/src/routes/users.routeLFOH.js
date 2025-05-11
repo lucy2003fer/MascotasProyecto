@@ -4,10 +4,10 @@ import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 
 const userRouter = Router();
-userRouter.get('/user',  obtenerUserLFOH);
-userRouter.post('/user',  crearUserLFOH);
-userRouter.get('/user/:id',  buscarUsersLFOH);
-userRouter.put('/user/:id',  actualizarUserLFOH);
-userRouter.delete('/user/:id',  eliminarUserLFOH)
+userRouter.get('/user', verifyJWT, obtenerUserLFOH);
+userRouter.post('/user', verifyJWT, crearUserLFOH);
+userRouter.get('/user/:id', verifyJWT, buscarUsersLFOH);
+userRouter.put('/user/:id', verifyJWT, actualizarUserLFOH);
+userRouter.delete('/user/:id', verifyJWT, eliminarUserLFOH)
 
 export default userRouter;

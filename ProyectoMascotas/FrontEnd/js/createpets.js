@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Verificar si el token está presente
+  checkToken(); // Esto se llama desde token.js
+
   const btnBack = document.getElementById("btn-back");
   const btnClose = document.getElementById("btn-close");
   const btnSave = document.getElementById("btn-save");
@@ -11,9 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorElement = document.getElementById("error");
 
   // Redirigir al hacer clic en "Volver" o "Cerrar"
-  const goBackOrClose = () => window.location.href = '/ProyectoMascotas/FrontEnd/pets.html';
-  btnBack.addEventListener("click", goBackOrClose);
-  btnClose.addEventListener("click", goBackOrClose);
+  btnBack.addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
+  btnClose.addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
 
   // Cargar razas, categorías y géneros
   const cargarSelects = async () => {
@@ -61,13 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("gender_id", petGenderSelect.value);
     formData.append("photo", petPhotoInput.files[0]);
 
-    const token = localStorage.getItem('token');
-    if (!token) return console.error("No se encontró un token de autenticación");
-
     try {
       const response = await fetch(`${API_URL}/api/pets`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}` },
+        headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` },
         body: formData
       });
 
@@ -78,6 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Inicializar
+  // Inicializar selects
   cargarSelects();
 });

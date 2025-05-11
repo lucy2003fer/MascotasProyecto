@@ -1,14 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const btnBack = document.getElementById("btn-back");
-  const btnClose = document.getElementById("btn-close");
 
+  // Verificar si el token está presente
+  checkToken();  // Esto llama a la función checkToken() de token.js
 
-  const goBackOrClose = () => window.location.href = '/ProyectoMascotas/FrontEnd/pets.html';
-  btnBack.addEventListener("click", goBackOrClose);
-  btnClose.addEventListener("click", goBackOrClose);
-  // Verificar si el token está presente, si no redirige
-  const token = localStorage.getItem('token');
-  if (!token) return window.location.href = '/ProyectoMascotas/FrontEnd/index.html';
+  document.getElementById("btn-back").addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
+  document.getElementById("btn-close").addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
 
   // Obtener ID de la mascota desde la URL
   const petId = new URLSearchParams(window.location.search).get("id");

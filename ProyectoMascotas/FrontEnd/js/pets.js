@@ -1,6 +1,9 @@
 // Función principal para cargar mascotas con autenticación
 async function cargarMascotas() {
   const listarpets = document.getElementById("listar-pets");
+  
+  // Verificar el token
+  const token = checkToken(); // Ahora reutilizamos checkToken
 
   try {
     const response = await fetch(`${API_URL}/api/pets`, {
@@ -54,6 +57,9 @@ async function cargarMascotas() {
 
 // Eliminar mascota con autenticación
 async function eliminarMascota(id) {
+  // Verificar el token
+  const token = checkToken(); // Ahora reutilizamos checkToken
+
   if (!confirm("¿Estás seguro que quieres eliminar esta mascota?")) return;
 
   try {

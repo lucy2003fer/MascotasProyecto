@@ -4,11 +4,11 @@ import verifyJWT from "../middleware/token.controllerLFOH.js";
 
 
 const raceRouter = Router();
-raceRouter.get('/races', obtenerRacesLFOH);
-raceRouter.post('/races', crearRaceLFOH);
-raceRouter.get('/races/:id', buscarRaceLFOH);
-raceRouter.put('/races/:id', actualizarRaceLFOH);
-raceRouter.patch('/races/:id', patchRaceLFOH);
-raceRouter.delete('/races/:id', eliminarRaceLFOH);
+raceRouter.get('/races', verifyJWT, obtenerRacesLFOH);
+raceRouter.post('/races', verifyJWT, crearRaceLFOH);
+raceRouter.get('/races/:id', verifyJWT, buscarRaceLFOH);
+raceRouter.put('/races/:id', verifyJWT, actualizarRaceLFOH);
+raceRouter.patch('/races/:id', verifyJWT, patchRaceLFOH);
+raceRouter.delete('/races/:id', verifyJWT, eliminarRaceLFOH);
 
 export default raceRouter;
