@@ -141,9 +141,9 @@ select {
 
 
 
-/* -------------------------- */
+
 /* RESPONSIVE DESIGN */
-/* -------------------------- */
+
 @media (min-width: 768px) {
   .add-pet-container {
     max-width: 500px;
