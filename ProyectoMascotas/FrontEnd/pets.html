@@ -1,63 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrar mascotas</title>
-    <link rel="stylesheet" href="css/pets.css"/>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h1 class="title">Administrar Mascotas</h1>
-        <button class="btn-close">
-          <img src="imgs/btn-close.svg" alt="Cerrar" />
-        </button>
-      </div>
-      <div class="add-button-wrapper">
-        <button id="btn-add">
-          <img src="imgs/btn-add.svg" alt="Adicionar" />
-        </button>
-      </div>
-      
-      <!-- Contenedor para las mascotas -->
-      <div class="listar-pets" id="listar-pets">
-        <div class="loading-message">Cargando mascotas...</div>
-      </div>
-      
-      <!-- Plantillas que usará JavaScript -->
-      <template id="pet-card-template">
-        <div class="pet-card">
-          <div class="imgPets">
-            <img class="pet-image" src="" alt="Foto de mascota">
-          </div>
-          <div class="pet-info">
-            <h3 class="pet-name"></h3>
-            <p class="pet-raze"></p>
-          </div>
-          <div class="buttons-options">
-            <button class="btn-show"><img src="imgs/btn-show.svg" alt="Ver"></button>
-            <button class="btn-edit"><img src="imgs/btn-edit.svg" alt="Editar"></button>
-            <button class="btn-delete"><img src="imgs/btn-delete.svg" alt="Eliminar"></button>
-          </div>
-        </div>
-      </template>
-      
-      <template id="error-template">
-        <div class="error-message">
-          <h3 class="error-title"></h3>
-          <p class="error-detail"></p>
-        </div>
-      </template>
-      
-      <template id="no-pets-template">
-        <div class="no-pets-message">
-          <h3>No hay mascotas registradas</h3>
-        </div>
-      </template>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administrar mascotas</title>
+  <link rel="stylesheet" href="css/pets.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Administrar Mascotas</h1>
+      <button class="btn-close" id="btn-close">
+        <img src="imgs/btn-close.svg" alt="Cerrar" />
+      </button>
     </div>
-    
-    <script src="js/conexion.js"></script>
-    <script src="js/pets.js"></script>
-  </body>
+    <div class="add-button-wrapper">
+      <button id="btn-add">
+        <img src="imgs/btn-add.svg" alt="Adicionar" />
+      </button>
+    </div>
+
+    <div class="listar-pets" id="listar-pets">
+      <div class="loading-message">Cargando mascotas...</div>
+    </div>
+  </div>
+
+  <script src="js/conexion.js"></script>
+  <script src="js/pets.js"></script>
+  <script src="js/token.js"></script> 
+</body>
+
 </html>
