@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #2c4674;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.add-pet-container {
+  width: 100%;
+  max-width: 400px;
+  color: white;
+  border-radius: 20px;
+  padding: 25px;
+  /* quitamos fondo para que use el del body */
+}
+
+.add-pet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.add-pet-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.add-pet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.photo-upload {
+  margin: 0 auto 15px auto;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.photo-upload img {
+  width: 110px;
+  height: 110px;
+  opacity: 0.7;
+}
+
+input[type="text"],
+select {
+  background-color: rgba(148, 164, 186, 0.986);
+  color:  #2a4b85;
+  border: 1px solid rgba(148, 164, 186, 0.986);
+  border-radius: 100px;
+  padding: 12px 15px;
+  font-size: 16px;
+  width: 100%;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+}
+
+.upload-file {
+  background-color: rgba(148, 164, 186, 0.986);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 80px;
+  padding: 12px 15px;
+  cursor: pointer;
+  border: 1px solid rgba(148, 164, 186, 0.986);
+}
+
+.upload-file span {
+  color: #2a4b85;
+  font-size: 16px;
+}
+
+.upload-file img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+}
+
+/* Estilo para el botón de guardar */
+
+.btn-save {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  padding: 10px; /* Asegura que haya un poco de espacio alrededor de la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  min-height: 60px; /* Asegura que el botón tenga suficiente altura */
+  cursor: pointer;
+  border-radius: 20px; /* Bordes redondeados */
+}
+
+.btn-save img {
+  width: 120%;  /* Aumenta el tamaño de la imagen, ocupando más del 100% del ancho */
+  height: 120%; /* Aumenta el tamaño de la imagen en altura */
+  object-fit: contain; /* Mantiene la proporción de la imagen */
+  opacity: 0.9;
+}
+
+
+
+
+
+/* -------------------------- */
+/* RESPONSIVE DESIGN */
+/* -------------------------- */
+@media (min-width: 768px) {
+  .add-pet-container {
+    max-width: 500px;
+    padding: 30px;
+    
+  }
+
+  .add-pet-header h2 {
+    font-size: 24px;
+  }
+
+  input[type="text"],
+  select,
+  .upload-file,
+  .btn-save {
+    font-size: 18px;
+    padding: 14px 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    background-color: #2c4674; /* color sólido, sin degradado */
+  }
+
+  .add-pet-container {
+    max-width: 600px;
+    /* eliminamos sombra y fondo */
+    box-shadow: none;
+  }
+}
