@@ -2,19 +2,41 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+
+const includeRelations = {
+  races: true,     
+  category: true,  
+  gender: {        
+    select: {
+      id: true,
+      name: true
+    }
+  }
+};
+
 export const crearPetLFOH = async (req, res) => {
   try {
     const { race_id, category_id, name, state, gender_id, user_id } = req.body;
 
     if (!req.file) {
-      return res.status(400).json({ message: "pon imagen" })
+      return res.status(400).json({ message: "pon imagen" });
     }
 
-    const imgname = req.file.filename
+    const imgname = req.file.filename;
 
     const pet = await prisma.pets.create({
-      data: { race_id: parseInt(race_id), category_id: parseInt(category_id), photo: `/pets/${imgname}`, name: name, state: state, gender_id: parseInt(gender_id), user_id: parseInt(user_id) }
+      data: {
+        race_id: parseInt(race_id),
+        category_id: parseInt(category_id),
+        photo: `/pets/${imgname}`,
+        name,
+        state,
+        gender_id: parseInt(gender_id),
+        user_id: parseInt(user_id)
+      },
+      include: includeRelations 
     });
+
     res.json({ message: 'Mascota creada correctamente', pet });
   } catch (error) {
     console.error(error);
@@ -25,9 +47,7 @@ export const crearPetLFOH = async (req, res) => {
 export const obtenerPetsLFOH = async (_req, res) => {
   try {
     const pets = await prisma.pets.findMany({
-      include: {
-        races: true
-      }
+      include: includeRelations 
     });
 
     if (pets.length > 0) return res.status(200).json(pets);
@@ -41,7 +61,11 @@ export const obtenerPetsLFOH = async (_req, res) => {
 export const buscarPetLFOH = async (req, res) => {
   try {
     const { id } = req.params;
-    const pet = await prisma.pets.findUnique({ where: { id: parseInt(id) } });
+    const pet = await prisma.pets.findUnique({
+      where: { id: parseInt(id) },
+      include: includeRelations 
+    });
+
     if (pet) return res.status(200).json(pet);
     return res.status(404).json({ message: 'Mascota no encontrada' });
   } catch (error) {
@@ -53,20 +77,35 @@ export const buscarPetLFOH = async (req, res) => {
 export const actualizarPetLFOH = async (req, res) => {
   try {
     const { id } = req.params;
-    const { race_id, category_id, photo, name, state, gender_id, user_id } = req.body;
+    const { race_id, category_id, name, state, gender_id, user_id } = req.body;
 
-    if (!req.file) {
-      return res.status(400).json({ message: "pon imagen" })
+    const existing = await prisma.pets.findUnique({ 
+      where: { id: parseInt(id) },
+      include: includeRelations
+    });
+
+    if (!existing) return res.status(404).json({ message: 'Mascota no encontrada' });
+
+    const updateData = {
+      race_id: parseInt(race_id),
+      category_id: parseInt(category_id),
+      name,
+      state,
+      gender_id: parseInt(gender_id),
+      user_id: parseInt(user_id)
+    };
+
+    
+    if (req.file) {
+      updateData.photo = `/pets/${req.file.filename}`;
     }
 
-    const imgname = req.file.filename
-
-    const existing = await prisma.pets.findUnique({ where: { id: parseInt(id) } });
-    if (!existing) return res.status(404).json({ message: 'Mascota no encontrada' });
     const pet = await prisma.pets.update({
       where: { id: parseInt(id) },
-      data: { race_id: parseInt(race_id), category_id: parseInt(category_id), photo: `/pets/${imgname}`, name: name, state: state, gender_id: parseInt(gender_id), user_id: parseInt(user_id) }
+      data: updateData,
+      include: includeRelations
     });
+
     res.json({ message: 'Mascota actualizada', pet });
   } catch (error) {
     console.error(error);
@@ -77,13 +116,16 @@ export const actualizarPetLFOH = async (req, res) => {
 export const patchPetLFOH = async (req, res) => {
   try {
     const { id } = req.params;
-    const existing = await prisma.pets.findUnique({ where: { id: parseInt(id) } });
+    const existing = await prisma.pets.findUnique({
+      where: { id: parseInt(id) },
+      include: includeRelations
+    });
+
     if (!existing) return res.status(404).json({ message: 'Mascota no encontrada' });
 
-    // Preparar las actualizaciones
     const updates = { ...req.body };
 
-    // Si se subió una nueva imagen, actualizar la ruta
+  
     if (req.file) {
       updates.photo = `/pets/${req.file.filename}`;
     }
@@ -96,7 +138,8 @@ export const patchPetLFOH = async (req, res) => {
 
     const pet = await prisma.pets.update({
       where: { id: parseInt(id) },
-      data: updates
+      data: updates,
+      include: includeRelations
     });
 
     res.json({ message: 'Mascota parcialmente actualizada', pet });
@@ -113,8 +156,13 @@ export const patchPetLFOH = async (req, res) => {
 export const eliminarPetLFOH = async (req, res) => {
   try {
     const { id } = req.params;
-    const existing = await prisma.pets.findUnique({ where: { id: parseInt(id) } });
+    const existing = await prisma.pets.findUnique({
+      where: { id: parseInt(id) },
+      include: includeRelations
+    });
+
     if (!existing) return res.status(404).json({ message: 'Mascota no encontrada' });
+
     await prisma.pets.delete({ where: { id: parseInt(id) } });
     res.json({ message: 'Mascota eliminada' });
   } catch (error) {
