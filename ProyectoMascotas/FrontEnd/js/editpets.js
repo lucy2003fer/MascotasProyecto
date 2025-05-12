@@ -1,108 +1,116 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  // Verificación del token
-  const token = checkToken(); // Usamos la función checkToken
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = "/ProyectoMascotas/FrontEnd/login.html";
+    return;
+  }
 
-  // Obtener el ID de la mascota
   const petId = new URLSearchParams(window.location.search).get("id");
-  if (!petId) return alert("ID de mascota no proporcionado.");
+  if (!petId) {
+    alert("ID de mascota no proporcionado.");
+    window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
+    return;
+  }
 
-  // Elementos del DOM
-  const petNameInput = document.getElementById("pet-name");
-  const petRaceSelect = document.getElementById("pet-race");
-  const petCategorySelect = document.getElementById("pet-category");
-  const petGenderSelect = document.getElementById("pet-gender");
-  const petPhotoInput = document.getElementById("pet-photo");
-  const petPhotoPreview = document.getElementById("pet-photo-preview");
-  const btnSave = document.getElementById("btn-save");
-  const errorElement = document.getElementById("error");
+  const el = id => document.getElementById(id);
+  const elements = {
+    name: el("pet-name"),
+    race: el("pet-race"),
+    category: el("pet-category"),
+    gender: el("pet-gender"),
+    photo: el("pet-photo"),
+    photoPreview: el("pet-photo-preview"),
+    saveBtn: el("btn-save"),
+    error: el("error"),
+    btnBack: el("btn-back"),
+    btnClose: el("btn-close")
+  };
 
-  // Redirigir al hacer clic en "Volver" o "Cerrar"
-  document.getElementById("btn-back").addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
-  document.getElementById("btn-close").addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
+  elements.btnBack.onclick = () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
+  elements.btnClose.onclick = () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
 
-  // Cargar razas, categorías y géneros
-  const loadSelects = async () => {
+  const loadSelect = async (url, select) => {
     try {
-      const [races, categories, genders] = await Promise.all([
-        fetch(`${API_URL}/api/races`).then(res => res.json()),
-        fetch(`${API_URL}/api/categories`).then(res => res.json()),
-        fetch(`${API_URL}/api/genders`).then(res => res.json())
-      ]);
-
-      races.forEach(r => petRaceSelect.add(new Option(r.name, r.id)));
-      categories.forEach(c => petCategorySelect.add(new Option(c.name, c.id)));
-      genders.forEach(g => petGenderSelect.add(new Option(g.name, g.id)));
+      const res = await fetch(`${API_URL}${url}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      select.innerHTML = `<option value="">Seleccione...</option>` +
+        data.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
     } catch (err) {
-      console.error("Error cargando selects:", err);
+      elements.error.textContent = `Error cargando ${url.split('/').pop()}`;
     }
   };
 
-  // Cargar los datos de la mascota
   const loadPet = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/pets/${petId}`);
-      if (!res.ok) throw new Error("Error al obtener la mascota");
+      const res = await fetch(`${API_URL}/api/pets/${petId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       const pet = await res.json();
-      petNameInput.value = pet.name || "";
-      petRaceSelect.value = pet.race_id;
-      petCategorySelect.value = pet.category_id;
-      petGenderSelect.value = pet.gender_id;
-      petPhotoPreview.src = pet.photo ? `${API_URL}${pet.photo}` : "imgs/photo-sm-4.svg";
+      
+      elements.name.value = pet.name || "";
+      elements.race.value = pet.race_id || "";
+      elements.category.value = pet.category_id || "";
+      elements.gender.value = pet.gender_id || "";
+      // Muestra la foto actual
+      elements.photoPreview.src = pet.photo ? `${API_URL}${pet.photo}` : "imgs/default-pet.jpg";
     } catch (err) {
-      console.error("Error al cargar mascota:", err);
-      alert("No se pudo cargar la información de la mascota.");
+      elements.error.textContent = "Error cargando mascota";
     }
   };
 
-  // Previsualizar imagen
-  petPhotoInput.addEventListener("change", () => {
-    const file = petPhotoInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => petPhotoPreview.src = reader.result;
-      reader.readAsDataURL(file);
+  elements.photo.addEventListener("change", (e) => {
+    if (e.target.files[0]) {
+      elements.photoPreview.src = URL.createObjectURL(e.target.files[0]);
     }
   });
 
-  // Validar campos
-  const validateFields = () => {
-    if (![petNameInput.value.trim(), petRaceSelect.value, petCategorySelect.value, petGenderSelect.value].every(Boolean)) {
-      errorElement.textContent = "Por favor complete todos los campos.";
-      return false;
+  elements.saveBtn.addEventListener("click", async () => {
+    if (!elements.name.value.trim()) {
+      elements.error.textContent = "El nombre es requerido";
+      return;
     }
-    return true;
-  };
-
-  // Guardar mascota
-  btnSave.addEventListener("click", async () => {
-    if (!validateFields()) return;
-
     const formData = new FormData();
-    formData.append("name", petNameInput.value);
-    formData.append("race_id", petRaceSelect.value);
-    formData.append("category_id", petCategorySelect.value);
-    formData.append("gender_id", petGenderSelect.value);
-    if (petPhotoInput.files[0]) formData.append("photo", petPhotoInput.files[0]);
+    formData.append("name", elements.name.value);
+    formData.append("race_id", elements.race.value);
+    formData.append("category_id", elements.category.value);
+    formData.append("gender_id", elements.gender.value);
+
+    // Solo agregar la foto si se seleccionó una nueva
+    if (elements.photo.files[0]) {
+      formData.append("photo", elements.photo.files[0]);
+    } else {
+      console.log("No se seleccionó nueva imagen.");
+    }
 
     try {
       const res = await fetch(`${API_URL}/api/pets/${petId}`, {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${token}` },
+        method: "PATCH", 
+        headers: { 'Authorization': `Bearer ${token}` },
         body: formData
       });
 
-      if (res.ok) window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
-      else {
-        const result = await res.json();
-        errorElement.textContent = result.message || "Error al guardar.";
+      if (res.ok) {
+        window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
+      } else {
+        const error = await res.json();
+        elements.error.textContent = error.message || "Error al guardar los cambios";
       }
     } catch (err) {
-      console.error("Error al guardar mascota:", err);
-      errorElement.textContent = "Error al guardar la mascota.";
+      console.error("Error al guardar:", err);
+      elements.error.textContent = "Error de conexión al guardar";
     }
   });
 
-  // Inicializar
-  await loadSelects();
-  await loadPet();
+  try {
+    await Promise.all([
+      loadSelect("/api/races", elements.race),
+      loadSelect("/api/categories", elements.category),
+      loadSelect("/api/genders", elements.gender),
+      loadPet()
+    ]);
+  } catch (err) {
+    console.error("Error en inicialización:", err);
+  }
 });
