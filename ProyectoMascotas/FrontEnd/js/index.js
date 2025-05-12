@@ -36,10 +36,10 @@ async function loginMJC(e) {
             return;
         }
 
-        // Almacenar el token
+
         localStorage.setItem('token', responseData.token);
 
-        // Redirigir a la página principal
+
         window.location.href = '/ProyectoMascotas/FrontEnd/pets.html';
 
     } catch (error) {

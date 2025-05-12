@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pet = await response.json();
 
 
-    document.getElementById("pet-image").src = pet.photo ? `${API_URL}${pet.photo}` : 'imgs/default-pet.png';
+    document.getElementById("pet-image").src = pet.photo ? `${API_URL}${pet.photo}` : 'imgs/icon-camera.png';
     document.getElementById("pet-name").textContent = pet.name || "Sin nombre";
     document.getElementById("pet-race").textContent = pet.races?.name || "Sin raza";
     document.getElementById("pet-category").textContent = pet.category?.name || "Sin categoría";

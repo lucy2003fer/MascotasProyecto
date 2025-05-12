@@ -114,22 +114,22 @@ select {
 /* Estilo para el botón de guardar */
 
 .btn-save {
-  background: none; /* Sin fondo */
-  border: none; /* Sin borde */
-  padding: 10px; /* Asegura que haya un poco de espacio alrededor de la imagen */
+  background: none; 
+  border: none; 
+  padding: 10px; 
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  min-height: 60px; /* Asegura que el botón tenga suficiente altura */
+  width: 100%; 
+  min-height: 60px; 
   cursor: pointer;
-  border-radius: 20px; /* Bordes redondeados */
+  border-radius: 20px; 
 }
 
 .btn-save img {
-  width: 120%;  /* Aumenta el tamaño de la imagen, ocupando más del 100% del ancho */
-  height: 120%; /* Aumenta el tamaño de la imagen en altura */
-  object-fit: contain; /* Mantiene la proporción de la imagen */
+  width: 120%;  
+  height: 120%; 
+  object-fit: contain; 
   opacity: 0.9;
 }
 
@@ -137,9 +137,8 @@ select {
 
 
 
-/* -------------------------- */
-/* RESPONSIVE DESIGN */
-/* -------------------------- */
+
+
 @media (min-width: 768px) {
   .add-pet-container {
     max-width: 500px;
@@ -167,7 +166,6 @@ select {
 
   .add-pet-container {
     max-width: 600px;
-    /* eliminamos sombra y fondo */
     box-shadow: none;
   }
 }

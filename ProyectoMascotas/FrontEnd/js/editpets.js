@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     formData.append("category_id", elements.category.value);
     formData.append("gender_id", elements.gender.value);
 
-    // Solo agregar la foto si se seleccionó una nueva
+
     if (elements.photo.files[0]) {
       formData.append("photo", elements.photo.files[0]);
     } else {

@@ -6,7 +6,7 @@ import {upload} from "../middleware/multer.js"
 const petRouter = Router();
 petRouter.get('/pets', verifyJWT, obtenerPetsLFOH);
 petRouter.post('/pets', verifyJWT, upload.single('photo'), crearPetLFOH);
-petRouter.get('/pets/:id', verifyJWT, buscarPetLFOH);
+petRouter.get('/pets/:id', buscarPetLFOH);
 petRouter.put('/pets/:id', verifyJWT, upload.single('photo'), actualizarPetLFOH);
 petRouter.patch('/pets/:id', verifyJWT, upload.single('photo'), patchPetLFOH);
 petRouter.delete('/pets/:id', verifyJWT, eliminarPetLFOH);

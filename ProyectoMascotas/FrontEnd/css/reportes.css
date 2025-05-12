@@ -76,7 +76,7 @@ canvas#grafica-categorias, canvas#grafica-generos {
   background-color: #3399ff;
 }
 
-/* Ajustes para Pantallas Pequeñas */
+
 @media (max-width: 768px) {
   body {
     padding: 15px;
@@ -88,7 +88,7 @@ canvas#grafica-categorias, canvas#grafica-generos {
   }
 
   .add-pet-header h2 {
-    font-size: 22px;  /* Aumentar tamaño de fuente en pantallas pequeñas */
+    font-size: 22px; 
   }
 
   .btn-icon {

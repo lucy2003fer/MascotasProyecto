@@ -9,7 +9,7 @@ body {
     background-image: url('../imgs/bg-login.svg');
     background-size: cover;
     background-position: center;
-    /* Eliminamos align-items: center */
+
 }
 
 .login-container {
@@ -17,13 +17,13 @@ body {
     border-radius: 15px;
     width: 320px;
     text-align: center;
-    margin: auto; /* Centrado vertical y horizontal */
+    margin: auto; 
     position: relative;
-    top: 35vh; /* Ajusta este valor para moverlo más arriba o abajo */
+    top: 35vh; 
     box-sizing: border-box;
 }
 
-/* Resto de tus estilos permanecen igual */
+
 .form-group {
     margin-bottom: 0;
     width: 120%;
