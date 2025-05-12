@@ -1,0 +1,8 @@
+canvas {
+    max-width: 600px;
+    margin: 30px auto;
+    display: block;
+}
+button {
+    margin: 10px;
+}

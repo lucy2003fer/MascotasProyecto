@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes de Mascotas</title>
+    <link rel="stylesheet" href="css/reportes.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/reportes.js"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/token.js"></script>
+
+</head>
+<body>
+    <h1>Reportes de Mascotas</h1>
+
+    <canvas id="grafica-categorias"></canvas>
+    <canvas id="grafica-generos"></canvas>
+
+    <button id="btn-reporte-listado">📄 Descargar listado PDF</button>
+    <button id="btn-reporte-estadistico">📄 Descargar resumen PDF</button>
+</body>
+</html>

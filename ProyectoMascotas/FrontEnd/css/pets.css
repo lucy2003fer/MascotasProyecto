@@ -33,14 +33,24 @@ body {
 }
 .title {
   margin: 0; /* Elimina margen por defecto del h1 */
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: white;
   text-align: center;
   flex-grow: 1;
 }
-.btn-close {
-  position: absolute;
-  right: 0; /* Lo coloca al extremo derecho */
+
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+#btn-back img {
+  width: 33px;
+  height: 33px;
+  object-fit: contain;
 }
 
 /*BOTÓN DE AÑADIR */
