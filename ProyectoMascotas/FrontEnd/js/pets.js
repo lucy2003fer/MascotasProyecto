@@ -1,7 +1,7 @@
 // Función principal para cargar mascotas con autenticación
 async function cargarMascotas() {
   const listarpets = document.getElementById("listar-pets");
-  
+
   // Verificar el token
   const token = checkToken(); // Ahora reutilizamos checkToken
 
@@ -83,4 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-add").addEventListener('click', () => {
     window.location.href = "/ProyectoMascotas/FrontEnd/createpets.html";
   });
+  document.getElementById("btn-back").addEventListener('click', () => {
+    window.location.href = "/ProyectoMascotas/FrontEnd/reportes.html";
+  });
 });
+

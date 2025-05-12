@@ -93,4 +93,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     generarPDFEstadistico(mascotas);
 });
 
-elements.btnBack.onclick = () => window.location.href = "/ProyectoMascotas/FrontEnd/reportes.html";
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarMascotas();
+  document.getElementById("btn-close").addEventListener('click', logout);
+  document.getElementById("btn-back").addEventListener('click', () => {
+    window.location.href = "/ProyectoMascotas/FrontEnd/reportes.html";
+  });
+});

@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes de Mascotas</title>
     <link rel="stylesheet" href="css/reportes.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -13,13 +14,24 @@
     <script src="js/token.js"></script>
 
 </head>
+
 <body>
-    <h1>Reportes de Mascotas</h1>
+    <div class="add-pet-container">
+        <div class="add-pet-header">
+            <button class="btn-icon" id="btn-back"><img src="imgs/btn-back.svg" alt="Volver"></button>
+            <h2>Reportes y gráficas</h2>
+            <button class="btn-icon" id="btn-close"><img src="imgs/btn-close.svg" alt="Cerrar"></button>
+        </div>
+        <div>
+            <canvas id="grafica-categorias"></canvas>
+            <canvas id="grafica-generos"></canvas>
+        </div>
 
-    <canvas id="grafica-categorias"></canvas>
-    <canvas id="grafica-generos"></canvas>
-
-    <button id="btn-reporte-listado">📄 Descargar listado PDF</button>
-    <button id="btn-reporte-estadistico">📄 Descargar resumen PDF</button>
+        <div class="botones-container">
+            <button id="btn-reporte-listado">Descargar listado PDF</button>
+            <button id="btn-reporte-estadistico">Descargar resumen PDF</button>
+        </div>
+    </div>
 </body>
+
 </html>

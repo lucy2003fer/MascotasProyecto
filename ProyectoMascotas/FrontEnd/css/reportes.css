@@ -1,8 +1,138 @@
-canvas {
-    max-width: 600px;
-    margin: 30px auto;
-    display: block;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
-button {
-    margin: 10px;
+
+body {
+  background-color: #2c4674;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.add-pet-container {
+  width: 100%;
+  max-width: 100%;
+  color: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-sizing: border-box;
+  background-color: #2c4674;
+}
+
+.add-pet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.add-pet-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  flex-grow: 1;
+}
+
+canvas#grafica-categorias, canvas#grafica-generos {
+  width: 100%;
+  background-color: white;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+}
+
+.botones-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.botones-container button {
+  background-color: #65d891;
+  color: white;
+  border: none;
+  padding: 16px 20px;
+  font-size: 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.botones-container button:hover {
+  background-color: #3399ff;
+}
+
+/* Ajustes para Pantallas Pequeñas */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  .add-pet-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .add-pet-header h2 {
+    font-size: 22px;  /* Aumentar tamaño de fuente en pantallas pequeñas */
+  }
+
+  .btn-icon {
+    padding: 10px;
+  }
+
+  canvas#grafica-categorias, canvas#grafica-generos {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .botones-container button {
+    font-size: 18px;
+    padding: 14px 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .add-pet-container {
+    max-width: 500px;
+    padding: 25px;
+  }
+
+  .add-pet-header h2 {
+    font-size: 24px;
+  }
+
+  .botones-container button {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .add-pet-container {
+    max-width: 600px;
+  }
+
+  .add-pet-header h2 {
+    font-size: 24px;
+  }
+
+  .botones-container button {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
 }
