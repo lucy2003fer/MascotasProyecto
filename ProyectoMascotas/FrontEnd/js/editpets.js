@@ -23,11 +23,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     saveBtn: el("btn-save"),
     error: el("error"),
     btnBack: el("btn-back"),
-    btnClose: el("btn-close")
+    btnClose: el("btn-close"),
+    lat: el("pet-lat"),
+    long: el("pet-long")
   };
 
   elements.btnBack.onclick = () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
   elements.btnClose.onclick = () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
+
+  // Inicializar mapa
+
+
+  const map = L.map('map').setView([1.852832, -76.048598], 13); 
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  let marker = null;
+
+  // Manejar clics en el mapa
+  map.on('click', (e) => {
+    const { lat, lng } = e.latlng;
+    elements.lat.value = lat;
+    elements.long.value = lng;
+    
+    // Eliminar marcador anterior si existe
+    if (marker) {
+      map.removeLayer(marker);
+    }
+    
+    // Añadir nuevo marcador
+    marker = L.marker([lat, lng]).addTo(map)
+      .bindPopup("Nueva ubicación de la mascota")
+      .openPopup();
+  });
 
   const loadSelect = async (url, select) => {
     try {
@@ -53,8 +82,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       elements.race.value = pet.race_id || "";
       elements.category.value = pet.category_id || "";
       elements.gender.value = pet.gender_id || "";
-      // Muestra la foto actual
       elements.photoPreview.src = pet.photo ? `${API_URL}${pet.photo}` : "imgs/default-pet.jpg";
+      
+      // Si la mascota tiene ubicación, centrar el mapa allí
+      if (pet.lat && pet.long) {
+        elements.lat.value = pet.lat;
+        elements.long.value = pet.long;
+        map.setView([pet.lat, pet.long], 15);
+        
+        // Crear marcador con la foto de la mascota
+        const customIcon = L.divIcon({
+          className: 'pet-marker',
+          html: `<img src="${pet.photo ? `${API_URL}${pet.photo}` : 'imgs/default-pet.jpg'}" 
+                 style="width:40px; height:40px; border-radius:50%; border:2px solid white; object-fit:cover;"/>`,
+          iconSize: [40, 40]
+        });
+        
+        marker = L.marker([pet.lat, pet.long], { icon: customIcon })
+          .addTo(map)
+          .bindPopup(`<b>${pet.name || 'Mascota'}</b><br>Ubicación actual`)
+          .openPopup();
+      }
     } catch (err) {
       elements.error.textContent = "Error cargando mascota";
     }
@@ -71,17 +119,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       elements.error.textContent = "El nombre es requerido";
       return;
     }
+    
     const formData = new FormData();
     formData.append("name", elements.name.value);
     formData.append("race_id", elements.race.value);
     formData.append("category_id", elements.category.value);
     formData.append("gender_id", elements.gender.value);
-
+    
+    // Solo añadir lat/long si tienen valor
+    if (elements.lat.value && elements.long.value) {
+      formData.append("lat", elements.lat.value);
+      formData.append("long", elements.long.value);
+    }
 
     if (elements.photo.files[0]) {
       formData.append("photo", elements.photo.files[0]);
-    } else {
-      console.log("No se seleccionó nueva imagen.");
     }
 
     try {

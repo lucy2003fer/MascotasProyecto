@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  // Verificar token
   if (!checkToken()) {
     window.location.href = "/ProyectoMascotas/FrontEnd/login.html";
     return;
   }
 
+  // Elementos del DOM
   const btnBack = document.getElementById("btn-back");
   const btnClose = document.getElementById("btn-close");
   const btnSave = document.getElementById("btn-save");
@@ -13,13 +15,41 @@ document.addEventListener("DOMContentLoaded", async () => {
   const petGenderSelect = document.getElementById("pet-gender");
   const petPhotoInput = document.getElementById("pet-photo");
   const petPhotoPreview = document.getElementById("pet-photo-preview");
+  const petLatInput = document.getElementById("pet-lat");
+  const petLongInput = document.getElementById("pet-long");
   const errorElement = document.getElementById("error");
 
-
+  // Event listeners para botones
   btnBack.addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
   btnClose.addEventListener("click", () => window.location.href = "/ProyectoMascotas/FrontEnd/pets.html");
 
+  // Inicializar mapa
+  const map = L.map('map').setView([1.852832, -76.048598], 13);
+  
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
 
+  let marker = null;
+
+  // Manejar clics en el mapa
+  map.on('click', (e) => {
+    const { lat, lng } = e.latlng;
+    petLatInput.value = lat;
+    petLongInput.value = lng;
+    
+    // Eliminar marcador anterior si existe
+    if (marker) {
+      map.removeLayer(marker);
+    }
+    
+    // Añadir nuevo marcador
+    marker = L.marker([lat, lng]).addTo(map)
+      .bindPopup("Ubicación de la mascota")
+      .openPopup();
+  });
+
+  // Cargar selects (razas, categorías, géneros)
   const cargarSelects = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -60,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-
+  // Preview de la foto
   petPhotoInput.addEventListener("change", () => {
     const file = petPhotoInput.files[0];
     if (file) {
@@ -70,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-
+  // Validar campos del formulario
   const validarCampos = () => {
     errorElement.textContent = '';
     
@@ -84,10 +114,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       return false;
     }
     
+    if (!petCategorySelect.value) {
+      errorElement.textContent = 'Debe seleccionar una categoría';
+      return false;
+    }
+    
+    if (!petGenderSelect.value) {
+      errorElement.textContent = 'Debe seleccionar un género';
+      return false;
+    }
+    
     if (!petPhotoInput.files[0]) {
       errorElement.textContent = 'Debe seleccionar una foto';
       return false;
     }
+    
+    if (!petLatInput.value || !petLongInput.value) {
+      errorElement.textContent = 'Debe seleccionar una ubicación en el mapa';
+      return false;
+    }
+    
     return true;
   };
 
@@ -101,22 +147,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     formData.append("category_id", petCategorySelect.value);
     formData.append("gender_id", petGenderSelect.value);
     formData.append("photo", petPhotoInput.files[0]);
+    formData.append("lat", petLatInput.value);
+    formData.append("long", petLongInput.value);
+    formData.append("state", "disponible"); // Estado por defecto
 
     try {
       const response = await fetch(`${API_URL}/api/pets`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` },
+        headers: { 
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         body: formData
       });
 
-      if (response.ok) { window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";}
-      else {const error = await response.json(); errorElement.textContent = error.message || 'Error al guardar la mascota';}
+      if (response.ok) { 
+        window.location.href = "/ProyectoMascotas/FrontEnd/pets.html";
+      } else {
+        const error = await response.json(); 
+        errorElement.textContent = error.message || 'Error al guardar la mascota';
+      }
     } catch (err) {
       console.error("Error al guardar la mascota:", err);
       errorElement.textContent = 'Error de conexión. Intente nuevamente.';
     }
   });
 
-
+  // Inicializar
   cargarSelects();
 });

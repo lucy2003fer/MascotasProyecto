@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa de Mascotas</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; width: 100%; }
+    .pet-marker {
+      border-radius: 50%;
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/conexion.js"></script>
+  <script src="js/token.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!checkToken()) {
+        window.location.href = "/ProyectoMascotas/FrontEnd/login.html";
+        return;
+      }
+
+      const map = L.map('map').setView([19.4326, -99.1332], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+      try {
+        const response = await fetch(`${API_URL}/api/pets`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        
+        const pets = await response.json();
+
+        pets.forEach(pet => {
+          if (pet.lat && pet.long) {
+            const customIcon = L.divIcon({
+              className: 'pet-marker',
+              html: `<img src="${pet.photo}" width="40" height="40" style="border-radius:50%"/>`,
+              iconSize: [40, 40]
+            });
+
+            L.marker([pet.lat, pet.long], { icon: customIcon })
+              .addTo(map)
+              .bindPopup(`
+                <b>${pet.name}</b><br>
+                <img src="${pet.photo}" width="100"/><br>
+                ${pet.races.name} - ${pet.category.name}
+              `);
+          }
+        });
+      } catch (error) {
+        console.error("Error cargando mascotas:", error);
+      }
+    });
+  </script>
+</body>
+</html>

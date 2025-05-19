@@ -58,9 +58,12 @@ model Pets {
   name        String     @db.VarChar(50)
   state       State      @default(disponible)
   gender_id   Int
-  user_id     Int? // El campo es opcional
-  user        Users?     @relation(fields: [user_id], references: [id]) // Relación opcional
+  user_id     Int? 
+  lat         Float?
+  long        Float?
+  user        Users?     @relation(fields: [user_id], references: [id])
   races       Races      @relation(fields: [race_id], references: [id])
   category    Categories @relation(fields: [category_id], references: [id])
   gender      Genders    @relation(fields: [gender_id], references: [id])
 }
+

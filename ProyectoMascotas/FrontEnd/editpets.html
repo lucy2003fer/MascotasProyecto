@@ -4,6 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestión de Mascotas</title>
   <link rel="stylesheet" href="css/editpets.css">
+  <!-- Añadir Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="js/conexion.js"></script>
   <script src="js/editpets.js" defer></script>
   <script src="js/token.js"></script>
@@ -40,6 +42,15 @@
       <select id="pet-gender" required>
         <option value="" disabled selected>Seleccione Género...</option>
       </select>
+      
+      <!-- Campos para coordenadas (ocultos) -->
+      <input type="hidden" id="pet-lat">
+      <input type="hidden" id="pet-long">
+      
+      <!-- Mapa interactivo -->
+      <div id="map"></div>
+      <small>Haz clic en el mapa para actualizar la ubicación</small>
+      
       <div id="error" style="color: red;"></div>
 
       <button class="btn-save" id="btn-save">
@@ -47,5 +58,8 @@
       </button>
     </div>
   </div>
+  
+  <!-- Añadir Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </body>
 </html>

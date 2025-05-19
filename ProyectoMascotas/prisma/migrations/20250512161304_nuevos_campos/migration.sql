@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `pets` ADD COLUMN `lat` DOUBLE NULL,
+    ADD COLUMN `long` DOUBLE NULL;

@@ -169,3 +169,26 @@ select {
     box-shadow: none;
   }
 }
+
+
+#map {
+  height: 250px;
+  width: 100%;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+}
+.leaflet-container {
+  cursor: pointer;
+}
+.location-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.location-fields input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}

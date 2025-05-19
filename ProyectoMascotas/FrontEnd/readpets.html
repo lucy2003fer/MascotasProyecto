@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultar Mascota</title>
     <link rel="stylesheet" href="css/readpets.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="js/conexion.js"></script>
     <script src="js/readpets.js"></script>
     <script src="js/token.js"></script> 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="container">
@@ -34,6 +36,11 @@
             <div class="info-field" style="background-image: url('imgs/info-gender.svg')">
                 <span id="pet-gender">Cargando...</span>
             </div>
+        </div>
+        
+        <div id="map"></div>
+        <div id="map-message" style="text-align: center; color: #666; margin-bottom: 20px;">
+            Ubicación de la mascota
         </div>
     </div>
 </body>
